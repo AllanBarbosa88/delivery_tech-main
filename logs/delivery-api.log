@@ -2354,3 +2354,28 @@ Action:
 
 Review the value of the property with the provided reason.
 
+2026-06-16 02:46:28.931 [restartedMain] INFO  [] c.d.d.DeliverytechFatApplication - Starting DeliverytechFatApplication using Java 21.0.11 with PID 7852 (C:\Criação\BR\delivery_tech-main\target\classes started by allan in C:\Criação\BR\delivery_tech-main)
+2026-06-16 02:46:28.933 [restartedMain] DEBUG [] c.d.d.DeliverytechFatApplication - Running with Spring Boot v3.5.15-SNAPSHOT, Spring v6.2.19
+2026-06-16 02:46:28.934 [restartedMain] INFO  [] c.d.d.DeliverytechFatApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-16 02:46:28.988 [restartedMain] INFO  [] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-06-16 02:46:28.989 [restartedMain] INFO  [] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-06-16 02:46:29.719 [restartedMain] WARN  [] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to process import candidates for configuration class [com.deliverytech.deliverytech_fat.DeliverytechFatApplication]: Error processing condition on org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus.PrometheusMetricsExportAutoConfiguration$PrometheusScrapeEndpointConfiguration
+2026-06-16 02:46:29.729 [restartedMain] INFO  [] o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-06-16 02:46:29.763 [restartedMain] ERROR [] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Invalid value 'permit' for configuration property 'management.endpoint.prometheus.access' (originating from 'class path resource [application.properties] - 51:39'). Validation failed for the following reason:
+
+Failed to convert to type org.springframework.boot.actuate.endpoint.Access
+
+Action:
+
+Review the value of the property with the provided reason.
+

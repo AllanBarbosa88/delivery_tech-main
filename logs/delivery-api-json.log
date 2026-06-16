@@ -2354,3 +2354,28 @@ Action:
 
 Review the value of the property with the provided reason.
 ","exception":""}
+{"timestamp":"2026-06-16 02:46:28.931","level":"INFO","thread":"restartedMain","correlationId":"","logger":"c.d.d.DeliverytechFatApplication","message":"Starting DeliverytechFatApplication using Java 21.0.11 with PID 7852 (C:\Criação\BR\delivery_tech-main\target\classes started by allan in C:\Criação\BR\delivery_tech-main)","exception":""}
+{"timestamp":"2026-06-16 02:46:28.933","level":"DEBUG","thread":"restartedMain","correlationId":"","logger":"c.d.d.DeliverytechFatApplication","message":"Running with Spring Boot v3.5.15-SNAPSHOT, Spring v6.2.19","exception":""}
+{"timestamp":"2026-06-16 02:46:28.934","level":"INFO","thread":"restartedMain","correlationId":"","logger":"c.d.d.DeliverytechFatApplication","message":"No active profile set, falling back to 1 default profile: "default"","exception":""}
+{"timestamp":"2026-06-16 02:46:28.988","level":"INFO","thread":"restartedMain","correlationId":"","logger":"o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor","message":"Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable","exception":""}
+{"timestamp":"2026-06-16 02:46:28.989","level":"INFO","thread":"restartedMain","correlationId":"","logger":"o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor","message":"For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'","exception":""}
+{"timestamp":"2026-06-16 02:46:29.719","level":"WARN","thread":"restartedMain","correlationId":"","logger":"o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext","message":"Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to process import candidates for configuration class [com.deliverytech.deliverytech_fat.DeliverytechFatApplication]: Error processing condition on org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus.PrometheusMetricsExportAutoConfiguration$PrometheusScrapeEndpointConfiguration","exception":""}
+{"timestamp":"2026-06-16 02:46:29.729","level":"INFO","thread":"restartedMain","correlationId":"","logger":"o.s.b.a.l.ConditionEvaluationReportLogger","message":"
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.","exception":""}
+{"timestamp":"2026-06-16 02:46:29.763","level":"ERROR","thread":"restartedMain","correlationId":"","logger":"o.s.b.d.LoggingFailureAnalysisReporter","message":"
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Invalid value 'permit' for configuration property 'management.endpoint.prometheus.access' (originating from 'class path resource [application.properties] - 51:39'). Validation failed for the following reason:
+
+Failed to convert to type org.springframework.boot.actuate.endpoint.Access
+
+Action:
+
+Review the value of the property with the provided reason.
+","exception":""}
