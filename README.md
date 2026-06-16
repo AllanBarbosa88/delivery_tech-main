@@ -9,11 +9,13 @@ Este projeto foi desenvolvido como parte da disciplina **Arquitetura de Sistemas
 ## 🛠️ Tecnologias Utilizadas
 
 ### Core
+
 - **Java 21 LTS** - Versão mais recente com recursos modernos
 - **Spring Boot 3.2.x** - Framework principal
 - **Maven** - Gerenciamento de dependências
 
 ### Dependências
+
 - **Spring Web** - APIs REST
 - **Spring Data JPA** - Persistência de dados
 - **H2 Database** - Banco em memória para desenvolvimento

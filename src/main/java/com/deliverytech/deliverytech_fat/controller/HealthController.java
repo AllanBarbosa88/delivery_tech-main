@@ -46,7 +46,7 @@ public class HealthController {
         AppInfo appInfo = new AppInfo(
             "Delivery Tech API",
             "1.0.0",
-            "Anderson Demoner",
+            "Allan Gutierez",
             System.getProperty("java.version"),
             "Spring Boot 3.2.x",
             LocalDateTime.now().format(FORMATTER),

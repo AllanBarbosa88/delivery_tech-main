@@ -6,12 +6,28 @@ on:
   pull_request:
     branches: [ main ]
 
+# Permissões necessárias para que o GitHub Actions consiga publicar imagens no pacote do repositório
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    services:
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Set up JDK 21
       uses: actions/setup-java@v4
@@ -19,22 +35,48 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
 
-    - name: Build with Maven
-      run: mvn clean install -DskipTests
+    # PASSO 1: Agora os testes do JUnit/Mockito rodam com H2 e Redis disponíveis!
+    - name: Run Tests and Build with Maven
+      run: mvn clean install
+      env:
+        JWT_SECRET: "chave-de-teste-temporaria-para-o-ambiente-de-build-do-ci"
+        JWT_EXPIRATION: "3600000"
+
+    # PASSO 2: Autenticação automática no Registro de Containers do GitHub
+    - name: Log in to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    # Cria o nome da imagem em letras minúsculas (requisito do Docker)
+    - name: Downcase repository name
+      run: |
+        echo "IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/delivery-api" | tr '[:upper:]' '[:lower:]' >> $GITHUB_ENV
 
     - name: Build Docker image
-      run: docker build -t minha-api .
+      run: docker build -t ${{ env.IMAGE_NAME }}:latest .
 
-    - name: Run Docker container
+    - name: Run Docker container for Health Check
       run: |
         docker run -d \
           -p 8080:8080 \
+          --net=host \
           -e JWT_SECRET="${{ secrets.JWT_SECRET }}" \
           -e JWT_EXPIRATION="${{ secrets.JWT_EXPIRATION }}" \
-          minha-api
+          ${{ env.IMAGE_NAME }}:latest
 
     - name: Test application health
       run: |
         echo "Aguardando a API ficar online (Health Check)..."
         timeout 40 bash -c 'until curl -f -s http://localhost:8080/actuator/health > /dev/null; do echo "Aguardando..."; sleep 2; done'
         echo "API inicializada com sucesso!"
+
+    # PASSO 3: Se o Health Check passou, a imagem é publicada na nuvem de forma segura
+    - name: Push Docker image to GHCR
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      run: docker push ${{ env.IMAGE_NAME }}:latest
+      env:
+        JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}

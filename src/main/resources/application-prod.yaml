@@ -1,7 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:mysql://db/proddb
-    username: produser
-    password: ${DB_PASSWORD}
-  jpa:
-    show-sql: false

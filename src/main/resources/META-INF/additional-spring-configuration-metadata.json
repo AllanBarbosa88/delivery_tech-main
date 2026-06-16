@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "spring.h2.console.settings.web-port",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.h2.console.settings.web-port'"
+  },
+  {
+    "name": "jwt.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.secret'"
+  }
+]}
