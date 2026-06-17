@@ -1,5 +1,16 @@
 package com.deliverytech.deliverytech_fat.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.deliverytech.deliverytech_fat.dto.ProdutoDTO;
 import com.deliverytech.deliverytech_fat.dto.req.ProdutoReqDTO;
 import com.deliverytech.deliverytech_fat.dto.res.ProdutoResDTO;
 import com.deliverytech.deliverytech_fat.entity.Produto;
@@ -8,12 +19,6 @@ import com.deliverytech.deliverytech_fat.exception.EntityNotFoundException;
 import com.deliverytech.deliverytech_fat.repository.ProdutoRepository;
 import com.deliverytech.deliverytech_fat.repository.RestauranteRepository;
 import com.deliverytech.deliverytech_fat.service.ProdutoService;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -28,7 +33,6 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Override
     public ProdutoResDTO cadastrar(ProdutoReqDTO dto) {
         Restaurante restaurante = restauranteRepository.findById(dto.getRestauranteId())
             .orElseThrow(() -> new EntityNotFoundException("Restaurante não encontrado com ID: " + dto.getRestauranteId()));
@@ -38,6 +42,26 @@ public class ProdutoServiceImpl implements ProdutoService {
         produto.setDisponivel(true);
 
         return modelMapper.map(produtoRepository.save(produto), ProdutoResDTO.class);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    @Cacheable(value = "produtos", key = "'cardapio'")
+    public List<ProdutoDTO> listarCardapio() {
+        System.out.println(">>>> BUSCANDO NO BANCO DE DADOS H2 <<<<"); // Log para você ver o cache funcionando
+        return produtoRepository.findAll()
+            .stream()
+            .map(produto -> modelMapper.map(produto, ProdutoDTO.class))
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    @CacheEvict(value = "produtos", allEntries = true)
+    @Transactional
+    public ProdutoDTO salvar(ProdutoDTO dto) {
+        Produto produto = modelMapper.map(dto, Produto.class);
+        Produto salvo = produtoRepository.save(produto);
+        return modelMapper.map(salvo, ProdutoDTO.class);
     }
 
     @Override
