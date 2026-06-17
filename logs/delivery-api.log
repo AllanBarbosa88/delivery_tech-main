@@ -271,3 +271,216 @@ Caused by: java.net.ConnectException: Connection refused: getsockopt
 2026-06-17 06:51:53.614 [AsyncReporter{org.springframework.boot.actuate.autoconfigure.tracing.zipkin.ZipkinRestTemplateSender@58058586}] DEBUG [] o.s.web.client.RestTemplate - HTTP POST http://localhost:9411/api/v2/spans
 2026-06-17 06:51:53.615 [AsyncReporter{org.springframework.boot.actuate.autoconfigure.tracing.zipkin.ZipkinRestTemplateSender@58058586}] DEBUG [] o.s.web.client.RestTemplate - Accept=[application/json, application/*+json]
 2026-06-17 06:51:53.618 [AsyncReporter{org.springframework.boot.actuate.autoconfigure.tracing.zipkin.ZipkinRestTemplateSender@58058586}] DEBUG [] o.s.web.client.RestTemplate - Writing [[B@553fe1d8] as "application/json"
+2026-06-17 06:55:19.424 [http-nio-8080-exec-4] DEBUG [] o.s.security.web.FilterChainProxy - Securing POST /h2-console/login.do?jsessionid=233f6a82ba82b9020c43d1e4fde49ae6
+2026-06-17 06:55:19.425 [http-nio-8080-exec-4] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.427 [http-nio-8080-exec-4] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.436 [http-nio-8080-exec-4] DEBUG [] o.s.security.web.FilterChainProxy - Secured POST /h2-console/login.do?jsessionid=233f6a82ba82b9020c43d1e4fde49ae6
+2026-06-17 06:55:19.476 [http-nio-8080-exec-3] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/stylesheet.css
+2026-06-17 06:55:19.477 [http-nio-8080-exec-3] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.478 [http-nio-8080-exec-3] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.484 [http-nio-8080-exec-3] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/stylesheet.css
+2026-06-17 06:55:19.537 [http-nio-8080-exec-5] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/header.jsp?jsessionid=233f6a82ba82b9020c43d1e4fde49ae6
+2026-06-17 06:55:19.539 [http-nio-8080-exec-5] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.541 [http-nio-8080-exec-5] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.543 [http-nio-8080-exec-5] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/header.jsp?jsessionid=233f6a82ba82b9020c43d1e4fde49ae6
+2026-06-17 06:55:19.568 [http-nio-8080-exec-7] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/tables.do?jsessionid=233f6a82ba82b9020c43d1e4fde49ae6
+2026-06-17 06:55:19.568 [http-nio-8080-exec-10] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/query.jsp?jsessionid=233f6a82ba82b9020c43d1e4fde49ae6
+2026-06-17 06:55:19.568 [http-nio-8080-exec-6] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/help.jsp?jsessionid=233f6a82ba82b9020c43d1e4fde49ae6
+2026-06-17 06:55:19.569 [http-nio-8080-exec-7] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.570 [http-nio-8080-exec-10] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.572 [http-nio-8080-exec-6] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.578 [http-nio-8080-exec-9] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/icon_disconnect.gif
+2026-06-17 06:55:19.580 [http-nio-8080-exec-7] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.580 [http-nio-8080-exec-10] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.580 [http-nio-8080-exec-6] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.581 [http-nio-8080-exec-9] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.582 [http-nio-8080-exec-7] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/tables.do?jsessionid=233f6a82ba82b9020c43d1e4fde49ae6
+2026-06-17 06:55:19.582 [http-nio-8080-exec-10] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/query.jsp?jsessionid=233f6a82ba82b9020c43d1e4fde49ae6
+2026-06-17 06:55:19.583 [http-nio-8080-exec-9] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.583 [http-nio-8080-exec-6] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/help.jsp?jsessionid=233f6a82ba82b9020c43d1e4fde49ae6
+2026-06-17 06:55:19.586 [http-nio-8080-exec-9] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/icon_disconnect.gif
+2026-06-17 06:55:19.587 [http-nio-8080-exec-8] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/icon_line.gif
+2026-06-17 06:55:19.592 [http-nio-8080-exec-8] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.593 [http-nio-8080-exec-8] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.595 [http-nio-8080-exec-8] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/icon_line.gif
+2026-06-17 06:55:19.647 [http-nio-8080-exec-2] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/icon_rollback.gif
+2026-06-17 06:55:19.648 [http-nio-8080-exec-1] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/icon_refresh.gif
+2026-06-17 06:55:19.648 [http-nio-8080-exec-4] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/icon_commit.gif
+2026-06-17 06:55:19.650 [http-nio-8080-exec-2] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.650 [http-nio-8080-exec-3] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/icon_run.gif
+2026-06-17 06:55:19.652 [http-nio-8080-exec-1] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.652 [http-nio-8080-exec-5] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/icon_run_selected.gif
+2026-06-17 06:55:19.653 [http-nio-8080-exec-4] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.657 [http-nio-8080-exec-2] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.660 [http-nio-8080-exec-1] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.660 [http-nio-8080-exec-3] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.661 [http-nio-8080-exec-5] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.669 [http-nio-8080-exec-3] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.661 [http-nio-8080-exec-4] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.663 [http-nio-8080-exec-2] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/icon_rollback.gif
+2026-06-17 06:55:19.663 [http-nio-8080-exec-1] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/icon_refresh.gif
+2026-06-17 06:55:19.669 [http-nio-8080-exec-5] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.674 [http-nio-8080-exec-3] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/icon_run.gif
+2026-06-17 06:55:19.677 [http-nio-8080-exec-4] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/icon_commit.gif
+2026-06-17 06:55:19.681 [http-nio-8080-exec-5] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/icon_run_selected.gif
+2026-06-17 06:55:19.692 [http-nio-8080-exec-6] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/icon_help.gif
+2026-06-17 06:55:19.693 [http-nio-8080-exec-10] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/icon_history.gif
+2026-06-17 06:55:19.693 [http-nio-8080-exec-6] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.695 [http-nio-8080-exec-10] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.697 [http-nio-8080-exec-10] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.696 [http-nio-8080-exec-6] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.698 [http-nio-8080-exec-9] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/icon_stop.gif
+2026-06-17 06:55:19.699 [http-nio-8080-exec-10] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/icon_history.gif
+2026-06-17 06:55:19.700 [http-nio-8080-exec-6] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/icon_help.gif
+2026-06-17 06:55:19.711 [http-nio-8080-exec-9] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.712 [http-nio-8080-exec-9] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.715 [http-nio-8080-exec-9] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/icon_stop.gif
+2026-06-17 06:55:19.808 [http-nio-8080-exec-8] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/tree.js
+2026-06-17 06:55:19.809 [http-nio-8080-exec-8] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.811 [http-nio-8080-exec-8] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.812 [http-nio-8080-exec-8] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/tree.js
+2026-06-17 06:55:19.909 [http-nio-8080-exec-2] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/tree_minus.gif
+2026-06-17 06:55:19.911 [http-nio-8080-exec-3] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/tree_table.gif
+2026-06-17 06:55:19.910 [http-nio-8080-exec-4] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/tree_database.gif
+2026-06-17 06:55:19.911 [http-nio-8080-exec-5] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/tree_empty.gif
+2026-06-17 06:55:19.911 [http-nio-8080-exec-10] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/tree_column.gif
+2026-06-17 06:55:19.911 [http-nio-8080-exec-2] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.911 [http-nio-8080-exec-1] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/tree_plus.gif
+2026-06-17 06:55:19.914 [http-nio-8080-exec-3] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.914 [http-nio-8080-exec-4] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.918 [http-nio-8080-exec-5] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.918 [http-nio-8080-exec-10] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.918 [http-nio-8080-exec-2] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.920 [http-nio-8080-exec-3] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.920 [http-nio-8080-exec-1] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.920 [http-nio-8080-exec-4] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.921 [http-nio-8080-exec-5] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.921 [http-nio-8080-exec-10] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.927 [http-nio-8080-exec-2] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/tree_minus.gif
+2026-06-17 06:55:19.931 [http-nio-8080-exec-3] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/tree_table.gif
+2026-06-17 06:55:19.932 [http-nio-8080-exec-1] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.934 [http-nio-8080-exec-4] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/tree_database.gif
+2026-06-17 06:55:19.935 [http-nio-8080-exec-5] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/tree_empty.gif
+2026-06-17 06:55:19.936 [http-nio-8080-exec-10] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/tree_column.gif
+2026-06-17 06:55:19.944 [http-nio-8080-exec-6] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/tree_users.gif
+2026-06-17 06:55:19.947 [http-nio-8080-exec-1] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/tree_plus.gif
+2026-06-17 06:55:19.947 [http-nio-8080-exec-9] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/tree_info.gif
+2026-06-17 06:55:19.950 [http-nio-8080-exec-6] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.951 [http-nio-8080-exec-9] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.951 [http-nio-8080-exec-6] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.952 [http-nio-8080-exec-9] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.954 [http-nio-8080-exec-6] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/tree_users.gif
+2026-06-17 06:55:19.956 [http-nio-8080-exec-1] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/tree_type.gif
+2026-06-17 06:55:19.956 [http-nio-8080-exec-7] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/tree_folder.gif
+2026-06-17 06:55:19.957 [http-nio-8080-exec-9] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/tree_info.gif
+2026-06-17 06:55:19.964 [http-nio-8080-exec-1] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.958 [http-nio-8080-exec-2] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/tree_index_az.gif
+2026-06-17 06:55:19.958 [http-nio-8080-exec-3] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/tree_index.gif
+2026-06-17 06:55:19.964 [http-nio-8080-exec-7] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.966 [http-nio-8080-exec-4] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/tree_view.gif
+2026-06-17 06:55:19.965 [http-nio-8080-exec-1] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.966 [http-nio-8080-exec-2] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.968 [http-nio-8080-exec-7] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.968 [http-nio-8080-exec-3] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.968 [http-nio-8080-exec-4] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.972 [http-nio-8080-exec-1] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/tree_type.gif
+2026-06-17 06:55:19.972 [http-nio-8080-exec-10] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /h2-console/tree_user.gif
+2026-06-17 06:55:19.976 [http-nio-8080-exec-2] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.979 [http-nio-8080-exec-3] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.979 [http-nio-8080-exec-7] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/tree_folder.gif
+2026-06-17 06:55:19.979 [http-nio-8080-exec-4] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.980 [http-nio-8080-exec-10] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:19.982 [http-nio-8080-exec-2] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/tree_index_az.gif
+2026-06-17 06:55:19.982 [http-nio-8080-exec-3] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/tree_index.gif
+2026-06-17 06:55:19.983 [http-nio-8080-exec-10] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:19.983 [http-nio-8080-exec-4] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/tree_view.gif
+2026-06-17 06:55:19.992 [http-nio-8080-exec-10] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /h2-console/tree_user.gif
+2026-06-17 06:55:20.015 [http-nio-8080-exec-5] DEBUG [] o.s.security.web.FilterChainProxy - Securing GET /favicon.ico
+2026-06-17 06:55:20.015 [http-nio-8080-exec-5] WARN  [] c.d.d.s.JwtAuthenticationFilter - JWT Token não começa com Bearer String
+2026-06-17 06:55:20.016 [http-nio-8080-exec-5] DEBUG [] o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-06-17 06:55:20.018 [http-nio-8080-exec-5] DEBUG [] o.s.security.web.FilterChainProxy - Secured GET /favicon.ico
+2026-06-17 06:55:20.019 [http-nio-8080-exec-5] DEBUG [1842765fbada4f23] o.s.web.servlet.DispatcherServlet - GET "/favicon.ico", parameters={}
+2026-06-17 06:55:20.024 [http-nio-8080-exec-5] DEBUG [1842765fbada4f23] o.s.w.s.h.SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2026-06-17 06:55:20.027 [http-nio-8080-exec-5] DEBUG [1842765fbada4f23] o.s.w.s.r.ResourceHttpRequestHandler - Resource not found
+2026-06-17 06:55:20.029 [http-nio-8080-exec-5] DEBUG [1842765fbada4f23] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler com.deliverytech.deliverytech_fat.exception.GlobalExceptionHandler#handleGenericException(Exception, HttpServletRequest)
+2026-06-17 06:55:20.030 [http-nio-8080-exec-5] DEBUG [1842765fbada4f23] o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json;q=0.8', given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8] and supported [application/json, application/*+json]
+2026-06-17 06:55:20.030 [http-nio-8080-exec-5] DEBUG [1842765fbada4f23] o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [com.deliverytech.deliverytech_fat.dto.ErrorResponse@3af6824c]
+2026-06-17 06:55:20.031 [http-nio-8080-exec-5] WARN  [1842765fbada4f23] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico.]
+2026-06-17 06:55:20.031 [http-nio-8080-exec-5] DEBUG [1842765fbada4f23] o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
+2026-06-17 06:55:20.384 [AsyncReporter{org.springframework.boot.actuate.autoconfigure.tracing.zipkin.ZipkinRestTemplateSender@58058586}] DEBUG [] o.s.web.client.RestTemplate - HTTP POST http://localhost:9411/api/v2/spans
+2026-06-17 06:55:20.385 [AsyncReporter{org.springframework.boot.actuate.autoconfigure.tracing.zipkin.ZipkinRestTemplateSender@58058586}] DEBUG [] o.s.web.client.RestTemplate - Accept=[application/json, application/*+json]
+2026-06-17 06:55:20.389 [AsyncReporter{org.springframework.boot.actuate.autoconfigure.tracing.zipkin.ZipkinRestTemplateSender@58058586}] DEBUG [] o.s.web.client.RestTemplate - Writing [[B@3f59dbf9] as "application/json"
+2026-06-17 07:29:12.679 [File Watcher] INFO  [] o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 87 class path changes (0 additions, 7 deletions, 80 modifications)
+2026-06-17 07:29:12.689 [Thread-5] INFO  [] o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2026-06-17 07:29:12.748 [Thread-5] INFO  [] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-17 07:29:12.764 [Thread-5] WARN  [] o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-224]
+2026-06-17 07:29:12.765 [Thread-5] INFO  [] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-06-17 07:29:12.772 [Thread-5] INFO  [] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-06-17 07:29:12.796 [AsyncReporter{org.springframework.boot.actuate.autoconfigure.tracing.zipkin.ZipkinRestTemplateSender@58058586}] DEBUG [] o.s.web.client.RestTemplate - HTTP POST http://localhost:9411/api/v2/spans
+2026-06-17 07:29:12.797 [AsyncReporter{org.springframework.boot.actuate.autoconfigure.tracing.zipkin.ZipkinRestTemplateSender@58058586}] DEBUG [] o.s.web.client.RestTemplate - Accept=[application/json, application/*+json]
+2026-06-17 07:29:12.797 [AsyncReporter{org.springframework.boot.actuate.autoconfigure.tracing.zipkin.ZipkinRestTemplateSender@58058586}] DEBUG [] o.s.web.client.RestTemplate - Writing [[B@4ec664da] as "application/json"
+2026-06-17 07:29:13.020 [restartedMain] INFO  [] c.d.d.DeliverytechFatApplication - Starting DeliverytechFatApplication using Java 21.0.11 with PID 11116 (C:\Criação\BR\delivery_tech-main\target\classes started by allan in C:\Criação\BR\delivery_tech-main)
+2026-06-17 07:29:13.021 [restartedMain] DEBUG [] c.d.d.DeliverytechFatApplication - Running with Spring Boot v3.2.5-SNAPSHOT, Spring v6.1.6
+2026-06-17 07:29:13.021 [restartedMain] INFO  [] c.d.d.DeliverytechFatApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-17 07:29:14.194 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-17 07:29:14.194 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-17 07:29:14.243 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 46 ms. Found 5 JPA repository interfaces.
+2026-06-17 07:29:14.250 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-17 07:29:14.250 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-17 07:29:14.259 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.deliverytech.deliverytech_fat.repository.ClienteRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-17 07:29:14.259 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.deliverytech.deliverytech_fat.repository.PedidoRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-17 07:29:14.260 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.deliverytech.deliverytech_fat.repository.ProdutoRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-17 07:29:14.265 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.deliverytech.deliverytech_fat.repository.RestauranteRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-17 07:29:14.266 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.deliverytech.deliverytech_fat.repository.UsuarioRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-17 07:29:14.266 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 15 ms. Found 0 Redis repository interfaces.
+2026-06-17 07:29:14.802 [restartedMain] INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-17 07:29:14.806 [restartedMain] INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-06-17 07:29:14.806 [restartedMain] INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-17 07:29:14.811 [restartedMain] INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-06-17 07:29:14.858 [restartedMain] INFO  [] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-17 07:29:14.858 [restartedMain] INFO  [] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1835 ms
+2026-06-17 07:29:15.205 [restartedMain] INFO  [] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2026-06-17 07:29:15.210 [restartedMain] INFO  [] com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection conn21: url=jdbc:h2:mem:delivery user=SA
+2026-06-17 07:29:15.211 [restartedMain] INFO  [] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2026-06-17 07:29:15.214 [restartedMain] INFO  [] o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:delivery'
+2026-06-17 07:29:15.383 [restartedMain] INFO  [] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-17 07:29:15.795 [restartedMain] INFO  [] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-17 07:29:16.108 [restartedMain] DEBUG [] c.d.d.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-06-17 07:29:16.110 [restartedMain] DEBUG [] o.s.w.f.ServerHttpObservationFilter - Filter 'webMvcObservationFilter' configured for use
+2026-06-17 07:29:17.412 [restartedMain] DEBUG [] o.s.w.s.m.m.a.RequestMappingHandlerMapping - 37 mappings in 'requestMappingHandlerMapping'
+2026-06-17 07:29:17.580 [restartedMain] DEBUG [] o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2026-06-17 07:29:17.839 [restartedMain] INFO  [] o.s.b.a.e.web.EndpointLinksResolver - Exposing 14 endpoint(s) beneath base path '/actuator'
+2026-06-17 07:29:17.954 [restartedMain] INFO  [] o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@69e71a5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2a21e723, org.springframework.security.web.context.SecurityContextHolderFilter@27233aeb, org.springframework.security.web.header.HeaderWriterFilter@28a41ea8, org.springframework.web.filter.CorsFilter@7df73eb2, org.springframework.security.web.authentication.logout.LogoutFilter@39ed8bb, com.deliverytech.deliverytech_fat.security.JwtAuthenticationFilter@5ab7045e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@56a6e468, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@29d90ce6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@58337bb4, org.springframework.security.web.session.SessionManagementFilter@4a64f2e7, org.springframework.security.web.access.ExceptionTranslationFilter@720f071, org.springframework.security.web.access.intercept.AuthorizationFilter@60b98550]
+2026-06-17 07:29:18.097 [restartedMain] DEBUG [] o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-06-17 07:29:18.123 [restartedMain] DEBUG [] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-06-17 07:29:18.618 [restartedMain] INFO  [] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-06-17 07:29:18.655 [restartedMain] INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-06-17 07:29:18.659 [restartedMain] INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-06-17 07:29:18.670 [restartedMain] INFO  [] c.d.d.DeliverytechFatApplication - Started DeliverytechFatApplication in 5.716 seconds (process running for 3280.912)
+2026-06-17 07:29:18.674 [restartedMain] INFO  [] o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-06-17 07:29:20.119 [File Watcher] INFO  [] o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 6 class path changes (6 additions, 0 deletions, 0 modifications)
+2026-06-17 07:29:20.126 [Thread-7] INFO  [] o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2026-06-17 07:29:20.154 [Thread-7] INFO  [] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-17 07:29:20.162 [Thread-7] WARN  [] o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-224]
+2026-06-17 07:29:20.165 [Thread-7] INFO  [] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2026-06-17 07:29:20.170 [Thread-7] INFO  [] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2026-06-17 07:29:21.318 [restartedMain] INFO  [] c.d.d.DeliverytechFatApplication - Starting DeliverytechFatApplication using Java 21.0.11 with PID 11116 (C:\Criação\BR\delivery_tech-main\target\classes started by allan in C:\Criação\BR\delivery_tech-main)
+2026-06-17 07:29:21.318 [restartedMain] DEBUG [] c.d.d.DeliverytechFatApplication - Running with Spring Boot v3.2.5-SNAPSHOT, Spring v6.1.6
+2026-06-17 07:29:21.319 [restartedMain] INFO  [] c.d.d.DeliverytechFatApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-17 07:29:21.822 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-17 07:29:21.822 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-17 07:29:21.855 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 5 JPA repository interfaces.
+2026-06-17 07:29:21.859 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-17 07:29:21.860 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-17 07:29:21.867 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.deliverytech.deliverytech_fat.repository.ClienteRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-17 07:29:21.868 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.deliverytech.deliverytech_fat.repository.PedidoRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-17 07:29:21.868 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.deliverytech.deliverytech_fat.repository.ProdutoRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-17 07:29:21.873 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.deliverytech.deliverytech_fat.repository.RestauranteRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-17 07:29:21.874 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.deliverytech.deliverytech_fat.repository.UsuarioRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-06-17 07:29:21.874 [restartedMain] INFO  [] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2026-06-17 07:29:22.169 [restartedMain] INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-17 07:29:22.170 [restartedMain] INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-06-17 07:29:22.172 [restartedMain] INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-17 07:29:22.177 [restartedMain] INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-06-17 07:29:22.208 [restartedMain] INFO  [] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-06-17 07:29:22.208 [restartedMain] INFO  [] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 886 ms
