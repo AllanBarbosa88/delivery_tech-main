@@ -42,7 +42,7 @@ jobs:
         JWT_SECRET: "chave-de-teste-temporaria-para-o-ambiente-de-build-do-ci"
         JWT_EXPIRATION: "3600000"
 
-    # PASSO 2: Autenticação automática no Registro de Containers do GitHub
+       # PASSO 2: Autenticação automática no Registro de Containers do GitHub
     - name: Log in to GitHub Container Registry
       uses: docker/login-action@v3
       with:
@@ -50,13 +50,9 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    # Cria o nome da imagem em letras minúsculas (requisito do Docker)
-    - name: Downcase repository name
-      run: |
-        echo "IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/delivery-api" | tr '[:upper:]' '[:lower:]' >> $GITHUB_ENV
-
+    # PASSO 3: Build com nome fixo em minúsculo (Substitua "allan" pelo seu usuário do GitHub em minúsculo se preferir)
     - name: Build Docker image
-      run: docker build -t ${{ env.IMAGE_NAME }}:latest .
+      run: docker build -t ghcr.io/allanbarbosa88/delivery-api:latest .
 
     - name: Run Docker container for Health Check
       run: |
@@ -65,7 +61,7 @@ jobs:
           --net=host \
           -e JWT_SECRET="${{ secrets.JWT_SECRET }}" \
           -e JWT_EXPIRATION="${{ secrets.JWT_EXPIRATION }}" \
-          ${{ env.IMAGE_NAME }}:latest
+          ghcr.io/allanbarbosa88/delivery-api:latest
 
     - name: Test application health
       run: |
@@ -73,10 +69,7 @@ jobs:
         timeout 40 bash -c 'until curl -f -s http://localhost:8080/actuator/health > /dev/null; do echo "Aguardando..."; sleep 2; done'
         echo "API inicializada com sucesso!"
 
-    # PASSO 3: Se o Health Check passou, a imagem é publicada na nuvem de forma segura
+    # PASSO 4: Se o Health Check passou, publica a imagem de forma segura
     - name: Push Docker image to GHCR
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: docker push ${{ env.IMAGE_NAME }}:latest
-      env:
-        JWT_SECRET: ${{ secrets.JWT_SECRET }}
-        JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
+      run: docker push ghcr.io/allanbarbosa88/delivery-api:latest
