@@ -1,18 +1,22 @@
 package com.deliverytech.deliverytech_fat;
 
-// ─── Imports ──────────────────────────────────────────────────────────────
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import com.deliverytech.deliverytech_fat.dto.ItemPedidoDTO;
-import com.deliverytech.deliverytech_fat.dto.req.PedidoReqDTO;
-import com.deliverytech.deliverytech_fat.dto.res.PedidoResDTO;
-import com.deliverytech.deliverytech_fat.entity.*;
-import com.deliverytech.deliverytech_fat.enums.StatusPedido;
-import com.deliverytech.deliverytech_fat.exception.BusinessException;
-import com.deliverytech.deliverytech_fat.exception.EntityNotFoundException;
-import com.deliverytech.deliverytech_fat.repository.*;
-import com.deliverytech.deliverytech_fat.service.impl.PedidoServiceImpl;
-import com.deliverytech.deliverytech_fat.validation.CEPValidator;
-import com.deliverytech.deliverytech_fat.validation.TelefoneValidator;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,14 +27,25 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
+// ─── Imports ──────────────────────────────────────────────────────────────
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import com.deliverytech.deliverytech_fat.dto.ItemPedidoDTO;
+import com.deliverytech.deliverytech_fat.dto.req.PedidoReqDTO;
+import com.deliverytech.deliverytech_fat.dto.res.PedidoResDTO;
+import com.deliverytech.deliverytech_fat.entity.Cliente;
+import com.deliverytech.deliverytech_fat.entity.Pedido;
+import com.deliverytech.deliverytech_fat.entity.Produto;
+import com.deliverytech.deliverytech_fat.entity.Restaurante;
+import com.deliverytech.deliverytech_fat.enums.StatusPedido;
+import com.deliverytech.deliverytech_fat.exception.BusinessException;
+import com.deliverytech.deliverytech_fat.exception.EntityNotFoundException;
+import com.deliverytech.deliverytech_fat.repository.ClienteRepository;
+import com.deliverytech.deliverytech_fat.repository.PedidoRepository;
+import com.deliverytech.deliverytech_fat.repository.ProdutoRepository;
+import com.deliverytech.deliverytech_fat.repository.RestauranteRepository;
+import com.deliverytech.deliverytech_fat.service.impl.PedidoServiceImpl;
+import com.deliverytech.deliverytech_fat.validation.CEPValidator;
+import com.deliverytech.deliverytech_fat.validation.TelefoneValidator;
 
 // ═════════════════════════════════════════════════════════════════════════════
 //  ATIVIDADE 3 — Testes adicionais para aumentar a cobertura JaCoCo
@@ -369,7 +384,7 @@ class CoberturaAdicionaisTest {
     @DisplayName("Deve ter todos os valores do enum StatusPedido")
     void should_HaveAllStatusPedidoValues() {
         StatusPedido[] values = StatusPedido.values();
-        assertEquals(6, values.length);
+        assertEquals(8, values.length);
         assertNotNull(StatusPedido.valueOf("PENDENTE"));
         assertNotNull(StatusPedido.valueOf("CONFIRMADO"));
         assertNotNull(StatusPedido.valueOf("PREPARANDO"));
