@@ -1,23 +1,35 @@
 package com.deliverytech.deliverytech_fat.service.impl;
 
-import com.deliverytech.deliverytech_fat.dto.req.PedidoReqDTO;
-import com.deliverytech.deliverytech_fat.dto.res.PedidoResDTO;
-import com.deliverytech.deliverytech_fat.dto.ItemPedidoDTO;
-import com.deliverytech.deliverytech_fat.entity.*;
-import com.deliverytech.deliverytech_fat.enums.StatusPedido;
-import com.deliverytech.deliverytech_fat.exception.BusinessException;
-import com.deliverytech.deliverytech_fat.exception.EntityNotFoundException;
-import com.deliverytech.deliverytech_fat.repository.*;
-import com.deliverytech.deliverytech_fat.service.PedidoService;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.deliverytech.deliverytech_fat.dto.ItemPedidoDTO;
+import com.deliverytech.deliverytech_fat.dto.req.PedidoReqDTO;
+import com.deliverytech.deliverytech_fat.dto.res.PedidoResDTO;
+import com.deliverytech.deliverytech_fat.entity.Cliente;
+import com.deliverytech.deliverytech_fat.entity.Entregador;
+import com.deliverytech.deliverytech_fat.entity.ItemPedido;
+import com.deliverytech.deliverytech_fat.entity.Pedido;
+import com.deliverytech.deliverytech_fat.entity.Produto;
+import com.deliverytech.deliverytech_fat.entity.Restaurante;
+import com.deliverytech.deliverytech_fat.enums.StatusEntregador;
+import com.deliverytech.deliverytech_fat.enums.StatusPedido;
+import com.deliverytech.deliverytech_fat.exception.BusinessException;
+import com.deliverytech.deliverytech_fat.exception.EntityNotFoundException;
+import com.deliverytech.deliverytech_fat.repository.ClienteRepository;
+import com.deliverytech.deliverytech_fat.repository.EntregadorRepository;
+import com.deliverytech.deliverytech_fat.repository.PedidoRepository;
+import com.deliverytech.deliverytech_fat.repository.ProdutoRepository;
+import com.deliverytech.deliverytech_fat.repository.RestauranteRepository;
+import com.deliverytech.deliverytech_fat.service.PedidoService;
 
 @Service
 @Transactional
@@ -27,6 +39,7 @@ public class PedidoServiceImpl implements PedidoService {
     @Autowired private ClienteRepository clienteRepository;
     @Autowired private RestauranteRepository restauranteRepository;
     @Autowired private ProdutoRepository produtoRepository;
+    @Autowired private EntregadorRepository entregadorRepository;
     @Autowired private ModelMapper modelMapper;
 
     @Override
@@ -52,7 +65,7 @@ public class PedidoServiceImpl implements PedidoService {
             if (!produto.isDisponivel())
                 throw new BusinessException("Produto indisponível: " + produto.getNome());
             if (!produto.getRestaurante().getId().equals(dto.getRestauranteId()))
-                throw new BusinessException("Produto não pertence ao restaurante selecionado");
+                throw new BusinessException("Produto não belongs ao restaurante selecionado");
 
             BigDecimal subtotalItem = BigDecimal.valueOf(produto.getPreco())
                 .multiply(BigDecimal.valueOf(itemDTO.getQuantidade()));
@@ -73,10 +86,10 @@ public class PedidoServiceImpl implements PedidoService {
         Pedido pedido = new Pedido();
         pedido.setCliente(cliente);
         pedido.setRestaurante(restaurante);
-        pedido.setDataPedido(LocalDateTime.now());
+        pedido.setDataCriacao(LocalDateTime.now());
         pedido.setStatus(StatusPedido.PENDENTE);
-        pedido.setEnderecoEntrega(dto.getEnderecoEntrega()); // campo deve existir na entidade
-        pedido.setSubTotal(subtotal);                        // nome conforme @Data do campo subTotal
+        pedido.setEnderecoEntrega(dto.getEnderecoEntrega());
+        pedido.setSubTotal(subtotal);                        
         pedido.setTaxaEntrega(taxaEntrega);
         pedido.setValorTotal(valorTotal);
 
@@ -101,7 +114,7 @@ public class PedidoServiceImpl implements PedidoService {
     @Override
     @Transactional(readOnly = true)
     public List<PedidoResDTO> buscarPedidosPorCliente(Long clienteId) {
-        return pedidoRepository.findByClienteIdOrderByDataPedidoDesc(clienteId)  // CORRIGIDO
+        return pedidoRepository.findByClienteIdOrderByDataCriacaoDesc(clienteId)  
             .stream()
             .map(p -> modelMapper.map(p, PedidoResDTO.class))
             .collect(Collectors.toList());
@@ -118,6 +131,11 @@ public class PedidoServiceImpl implements PedidoService {
 
         pedido.setStatus(novoStatus);
         return modelMapper.map(pedidoRepository.save(pedido), PedidoResDTO.class);
+    }
+
+    @Override
+    public PedidoResDTO alterarStatus(Long id, StatusPedido status) {
+        return this.atualizarStatusPedido(id, status);
     }
 
     @Override
@@ -147,12 +165,42 @@ public class PedidoServiceImpl implements PedidoService {
         pedidoRepository.save(pedido);
     }
 
+    @Override
+    public PedidoResDTO despacharPedido(Long pedidoId, Long entregadorId) {
+        Pedido pedido = pedidoRepository.findById(pedidoId)
+            .orElseThrow(() -> new EntityNotFoundException("Pedido não encontrado"));
+
+        Entregador entregador = entregadorRepository.findById(entregadorId)
+            .orElseThrow(() -> new EntityNotFoundException("Entregador não encontrado"));
+
+        // Regra de Negócio: Permite despachar se estiver PREPARANDO ou se já foi aceito como DESPACHADO
+        if (pedido.getStatus() != StatusPedido.PREPARANDO && pedido.getStatus() != StatusPedido.DESPACHADO) {
+            throw new BusinessException("Pedido não pode ser despachado no status atual: " + pedido.getStatus());
+        }
+
+        // Regra de Negócio: O motoboy precisa estar livre
+        if (entregador.getStatus() != StatusEntregador.DISPONIVEL) {
+            throw new BusinessException("O entregador selecionado está ocupado em outra corrida.");
+        }
+
+        // Atualização de estados operacionais
+        entregador.setStatus(StatusEntregador.EM_ENTREGA);
+        pedido.setEntregador(entregador);
+        pedido.setStatus(StatusPedido.EM_ROTA); // Ou StatusPedido.SAIU_PARA_ENTREGA
+
+        entregadorRepository.save(entregador);
+        Pedido pedidoSalvo = pedidoRepository.save(pedido);
+
+        return modelMapper.map(pedidoSalvo, PedidoResDTO.class);
+    }
+
     private boolean isTransicaoValida(StatusPedido atual, StatusPedido novo) {
         return switch (atual) {
             case PENDENTE -> novo == StatusPedido.CONFIRMADO || novo == StatusPedido.CANCELADO;
             case CONFIRMADO -> novo == StatusPedido.PREPARANDO || novo == StatusPedido.CANCELADO;
-            case PREPARANDO -> novo == StatusPedido.SAIU_PARA_ENTREGA;
-            case SAIU_PARA_ENTREGA -> novo == StatusPedido.ENTREGUE;
+            case PREPARANDO -> novo == StatusPedido.DESPACHADO || novo == StatusPedido.EM_ROTA || novo == StatusPedido.SAIU_PARA_ENTREGA;
+            case DESPACHADO -> novo == StatusPedido.EM_ROTA || novo == StatusPedido.SAIU_PARA_ENTREGA;
+            case EM_ROTA, SAIU_PARA_ENTREGA -> novo == StatusPedido.ENTREGUE;
             default -> false;
         };
     }

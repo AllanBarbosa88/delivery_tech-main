@@ -4,7 +4,9 @@ public enum StatusPedido {
     PENDENTE,
     CONFIRMADO,
     PREPARANDO,
-    SAIU_PARA_ENTREGA,
+    DESPACHADO,
+    EM_ROTA,
+    SAIU_PARA_ENTREGA, // Mantém para o código antigo não quebrar
     ENTREGUE,
     CANCELADO
 }

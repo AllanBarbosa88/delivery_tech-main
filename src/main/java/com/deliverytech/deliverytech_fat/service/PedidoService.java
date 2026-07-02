@@ -1,11 +1,12 @@
 package com.deliverytech.deliverytech_fat.service;
 
-import com.deliverytech.deliverytech_fat.dto.req.PedidoReqDTO;
-import com.deliverytech.deliverytech_fat.dto.res.PedidoResDTO;
-import com.deliverytech.deliverytech_fat.dto.ItemPedidoDTO;
-import com.deliverytech.deliverytech_fat.enums.StatusPedido;
 import java.math.BigDecimal;
 import java.util.List;
+
+import com.deliverytech.deliverytech_fat.dto.ItemPedidoDTO;
+import com.deliverytech.deliverytech_fat.dto.req.PedidoReqDTO;
+import com.deliverytech.deliverytech_fat.dto.res.PedidoResDTO;
+import com.deliverytech.deliverytech_fat.enums.StatusPedido;
 
 public interface PedidoService {
 
@@ -20,4 +21,9 @@ public interface PedidoService {
     BigDecimal calcularTotalPedido(List<ItemPedidoDTO> itens);
 
     void cancelarPedido(Long id);
+
+    PedidoResDTO alterarStatus(Long id, com.deliverytech.deliverytech_fat.enums.StatusPedido status);
+
+    // 🌟 ADICIONE ESTA ASSINATURA FALTANTE AQUI PARA ACABAR COM O ERRO DE COMPILAÇÃO:
+    PedidoResDTO despacharPedido(Long pedidoId, Long entregadorId);
 }

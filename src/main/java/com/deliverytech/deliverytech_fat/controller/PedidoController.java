@@ -1,17 +1,31 @@
 package com.deliverytech.deliverytech_fat.controller;
 
-import com.deliverytech.deliverytech_fat.dto.req.PedidoReqDTO;
-import com.deliverytech.deliverytech_fat.dto.res.PedidoResDTO;
-import com.deliverytech.deliverytech_fat.dto.ItemPedidoDTO;
-import com.deliverytech.deliverytech_fat.dto.StatusPedidoDTO;
-import com.deliverytech.deliverytech_fat.service.PedidoService;
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.deliverytech.deliverytech_fat.dto.ItemPedidoDTO;
+import com.deliverytech.deliverytech_fat.dto.StatusPedidoDTO;
+import com.deliverytech.deliverytech_fat.dto.req.PedidoReqDTO;
+import com.deliverytech.deliverytech_fat.dto.res.PedidoResDTO;
+import com.deliverytech.deliverytech_fat.enums.StatusPedido;
+import com.deliverytech.deliverytech_fat.service.PedidoService;
+
 import jakarta.validation.Valid;
-import java.math.BigDecimal;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/pedidos")
@@ -58,4 +72,19 @@ public class PedidoController {
         BigDecimal total = pedidoService.calcularTotalPedido(itens);
         return ResponseEntity.ok(total);
     }
+    @PutMapping("/{pedidoId}/despachar")
+    public ResponseEntity<PedidoResDTO> despachar(
+            @PathVariable Long pedidoId,
+            @RequestParam Long entregadorId) {
+        return ResponseEntity.ok(pedidoService.atualizarStatusPedido(pedidoId, StatusPedido.valueOf("DESPACHADO")));
+    }
+        // SE O ERRO FOR NA ROTA DE ATUALIZAÇÃO GERAL:
+    @PutMapping("/{id}/status")
+    public ResponseEntity<PedidoResDTO> atualizarStatus(
+        @PathVariable Long id, 
+        @RequestParam StatusPedido status) { // <-- Alterado de String para StatusPedido
+    return ResponseEntity.ok(pedidoService.alterarStatus(id, status));
+    }
+
+
 }

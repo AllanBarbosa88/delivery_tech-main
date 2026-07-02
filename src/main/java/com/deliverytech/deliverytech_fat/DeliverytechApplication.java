@@ -7,10 +7,10 @@ import org.springframework.cache.annotation.EnableCaching;
 
 @EnableCaching
 @SpringBootApplication
-public class DeliverytechFatApplication {
+public class DeliverytechApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DeliverytechFatApplication.class, args);
+		SpringApplication.run(DeliverytechApplication.class, args);
 	}
 
 }
