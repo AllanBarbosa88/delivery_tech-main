@@ -37,12 +37,14 @@ jobs:
 
     # PASSO 1: Agora os testes do JUnit/Mockito rodam com H2 e Redis disponíveis!
     - name: Run Tests and Build with Maven
-      run: mvn clean install
       env:
-        JWT_SECRET: "chave-de-teste-temporaria-para-o-ambiente-de-build-do-ci"
-        JWT_EXPIRATION: "3600000"
+        JWT_SECRET: "${{ secrets.JWT_SECRET }}"
+        JWT_EXPIRATION: "${{ secrets.JWT_EXPIRATION }}"
+        SPRING_DATA_REDIS_HOST: localhost
+        SPRING_DATA_REDIS_PORT: 6379
+      run: mvn clean install
 
-       # PASSO 2: Autenticação automática no Registro de Containers do GitHub
+    # PASSO 2: Autenticação automática no Registro de Containers do GitHub
     - name: Log in to GitHub Container Registry
       uses: docker/login-action@v3
       with:
@@ -50,26 +52,36 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    # PASSO 3: Build com nome fixo em minúsculo (Substitua "allan" pelo seu usuário do GitHub em minúsculo se preferir)
+    # PASSO 3: Build com o nome correto do repositório
     - name: Build Docker image
-      run: docker build -t ghcr.io/allanbarbosa88/delivery-api:latest .
+      run: docker build -t ghcr.io/allanbarbosa88/deliverytech-api:latest .
 
     - name: Run Docker container for Health Check
       run: |
         docker run -d \
           -p 8080:8080 \
-          --net=host \
+          --add-host=host.docker.internal:host-gateway \
           -e JWT_SECRET="${{ secrets.JWT_SECRET }}" \
           -e JWT_EXPIRATION="${{ secrets.JWT_EXPIRATION }}" \
-          ghcr.io/allanbarbosa88/delivery-api:latest
+          -e SPRING_DATA_REDIS_HOST="host.docker.internal" \
+          -e SPRING_DATA_REDIS_PORT="6379" \
+          ghcr.io/allanbarbosa88/deliverytech-api:latest
 
     - name: Test application health
       run: |
         echo "Aguardando a API ficar online (Health Check)..."
-        timeout 40 bash -c 'until curl -f -s http://localhost:8080/actuator/health > /dev/null; do echo "Aguardando..."; sleep 2; done'
+        
+        # Tenta conectar por 30 segundos. Se falhar, captura os logs do Docker antes de fechar.
+        if ! timeout 30 bash -c 'until curl -f -s http://localhost:8080/actuator/health > /dev/null; do echo "Aguardando..."; sleep 3; done'; then
+          echo "=================================================="
+          echo "❌ FALHA NO HEALTH CHECK! IMPRIMINDO LOGS DA API:"
+          echo "=================================================="
+          docker logs $(docker ps -a -q --filter ancestor=ghcr.io/allanbarbosa88/deliverytech-api:latest | head -n 1)
+          exit 1
+        fi
+        
         echo "API inicializada com sucesso!"
 
-    # PASSO 4: Se o Health Check passou, publica a imagem de forma segura
     - name: Push Docker image to GHCR
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: docker push ghcr.io/allanbarbosa88/delivery-api:latest
+      run: docker push ghcr.io/allanbarbosa88/deliverytech-api:latest

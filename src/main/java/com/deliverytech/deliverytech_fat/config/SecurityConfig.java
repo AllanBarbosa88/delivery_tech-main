@@ -32,6 +32,10 @@ public class SecurityConfig {
 
         "/",
         "/**.html",
+        "/error", // <-- ADICIONE ESSA LINHA AQUI!
+        "/api/entregadores/**", // <-- Adicione essa linha na sua lista de rotas liberadas
+        "/api/pagamentos/**",
+        "/actuator/**",
         "/**.css",
         "/**.js",
         "/**.ico",
@@ -44,9 +48,11 @@ public class SecurityConfig {
         "/api/restaurantes",
         "/api/produtos",
         "/dashboard/**",
-        "/actuator/**",
-        "/h2-console/**"
-
+        "/h2-console/**",
+        "/v3/api-docs/**",
+        "/swagger-ui/**",
+        "/swagger-ui.html",
+        "/api/auth/**"
     };
 
     @Autowired private AuthService authService;
@@ -74,8 +80,9 @@ public class SecurityConfig {
             .authenticationProvider(authenticationProvider())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(WHITE_LIST).permitAll()
-                .anyRequest().authenticated()
-            )
+                .anyRequest().authenticated())
+             // Adicione aqui o seu filtro JWT personalizado antes do filtro padrão do Spring
+             // .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)        
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
 

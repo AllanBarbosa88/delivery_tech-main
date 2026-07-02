@@ -16,9 +16,10 @@ INSERT INTO produto (nome, descricao, preco, categoria, disponivel, validade, re
 INSERT INTO produto (nome, descricao, preco, categoria, disponivel, validade, restaurante_id) VALUES ('Hot Roll Salmão', '8 peças de hot roll de salmão', 32.90, 'Hot Roll', true, 1, 3);
 INSERT INTO produto (nome, descricao, preco, categoria, disponivel, validade, restaurante_id) VALUES ('Temaki Atum', 'Temaki de atum com cream cheese', 15.90, 'Temaki', true, 1, 3);
 
-INSERT INTO pedido (data_pedido, entrega, sub_total, taxa_entrega, valor_total, numero_pedido, status, cliente_id, restaurante_id) VALUES (CURRENT_TIMESTAMP, true, 64.80, 5.00, 69.80, 'PED1234567890', 'PENDENTE', 1, 1);
-INSERT INTO pedido (data_pedido, entrega, sub_total, taxa_entrega, valor_total, numero_pedido, status, cliente_id, restaurante_id) VALUES (CURRENT_TIMESTAMP, true, 41.80, 3.50, 45.30, 'PED1234567891', 'CONFIRMADO', 2, 2);
-INSERT INTO pedido (data_pedido, entrega, sub_total, taxa_entrega, valor_total, numero_pedido, status, cliente_id, restaurante_id) VALUES (CURRENT_TIMESTAMP, true, 78.80, 8.00, 86.80, 'PED1234567892', 'ENTREGUE', 3, 3);
+-- ✔️ Corrigido: Removido 'data_pedido' para deixar o Hibernate preencher 'data_criacao' automaticamente
+INSERT INTO pedido (entrega, sub_total, taxa_entrega, valor_total, numero_pedido, status, cliente_id, restaurante_id) VALUES (true, 64.80, 5.00, 69.80, 'PED1234567890', 'PENDENTE', 1, 1);
+INSERT INTO pedido (entrega, sub_total, taxa_entrega, valor_total, numero_pedido, status, cliente_id, restaurante_id) VALUES (true, 41.80, 3.50, 45.30, 'PED1234567891', 'CONFIRMADO', 2, 2);
+INSERT INTO pedido (entrega, sub_total, taxa_entrega, valor_total, numero_pedido, status, cliente_id, restaurante_id) VALUES (true, 78.80, 8.00, 86.80, 'PED1234567892', 'ENTREGUE', 3, 3);
 
 INSERT INTO item_pedido (quantidade, preco_unitario, subtotal, pedido_id, produto_id) VALUES (1, 35.90, 35.90, 1, 1);
 INSERT INTO item_pedido (quantidade, preco_unitario, subtotal, pedido_id, produto_id) VALUES (1, 28.90, 28.90, 1, 3);

@@ -1,6 +1,9 @@
 package com.deliverytech.deliverytech_fat.service.impl;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -44,14 +47,25 @@ public class ProdutoServiceImpl implements ProdutoService {
         return modelMapper.map(produtoRepository.save(produto), ProdutoResDTO.class);
     }
 
-    @Override
+     @Override
     @Transactional(readOnly = true)
     @Cacheable(value = "produtos", key = "'cardapio'")
     public List<ProdutoDTO> listarCardapio() {
-        System.out.println(">>>> BUSCANDO NO BANCO DE DADOS H2 <<<<"); // Log para você ver o cache funcionando
+        System.out.println(">>>> BUSCANDO NO BANCO DE DADOS H2 <<<<");
+        
         return produtoRepository.findAll()
             .stream()
-            .map(produto -> modelMapper.map(produto, ProdutoDTO.class))
+            .map(produto -> new ProdutoDTO(
+                // Como o ID é primitivo 'long', convertemos direto sem checar null
+                UUID.nameUUIDFromBytes(String.valueOf(produto.getId()).getBytes()),
+                produto.getNome(),
+                produto.getDescricao(),
+                // Como preco é 'double' primitivo, passamos direto para o BigDecimal
+                BigDecimal.valueOf(produto.getPreco()),
+                produto.isDisponivel() ? 100 : 0, // Ajustado para usar isDisponivel()
+                LocalDateTime.now(),
+                List.of()
+            ))
             .collect(Collectors.toList());
     }
 
@@ -59,9 +73,24 @@ public class ProdutoServiceImpl implements ProdutoService {
     @CacheEvict(value = "produtos", allEntries = true)
     @Transactional
     public ProdutoDTO salvar(ProdutoDTO dto) {
-        Produto produto = modelMapper.map(dto, Produto.class);
+        // Mapeamento manual para salvar o Record no banco de dados sem passar pelo ModelMapper
+        Produto produto = new Produto();
+        produto.setNome(dto.nome());
+        produto.setDescricao(dto.descricao());
+        produto.setPreco(dto.preco() != null ? dto.preco().doubleValue() : 0.0);
+        produto.setDisponivel(true);
+
         Produto salvo = produtoRepository.save(produto);
-        return modelMapper.map(salvo, ProdutoDTO.class);
+
+        return new ProdutoDTO(
+            dto.id() != null ? dto.id() : UUID.randomUUID(),
+            salvo.getNome(),
+            salvo.getDescricao(),
+            BigDecimal.valueOf(salvo.getPreco()),
+            dto.estoque(),
+            dto.dataCadastro() != null ? dto.dataCadastro() : LocalDateTime.now(),
+            dto.tags()
+        );
     }
 
     @Override

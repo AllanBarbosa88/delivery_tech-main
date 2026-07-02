@@ -1,7 +1,6 @@
 package com.deliverytech.deliverytech_fat.config;
-
-
 import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration.AccessLevel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,15 +9,13 @@ public class ModelMapperConfig {
 
     @Bean
     public ModelMapper modelMapper() {
-        ModelMapper mapper = new ModelMapper();
-    
-
-        // cofigurações adicionais do ModelMapper podem ser feitas aqui, se necessário
-        mapper.getConfiguration()
-        .setFieldMatchingEnabled(true)
-        .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
-    
-        return mapper;
+        ModelMapper modelMapper = new ModelMapper();
+        
+        // Permite ao ModelMapper ler os campos diretamente (essencial para Java Records)
+        modelMapper.getConfiguration()
+                .setFieldMatchingEnabled(true)
+                .setFieldAccessLevel(AccessLevel.PRIVATE);
+                
+        return modelMapper;
     }
 }
-
