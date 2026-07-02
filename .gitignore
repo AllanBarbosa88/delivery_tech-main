@@ -33,3 +33,10 @@ build/
 .vscode/
 
 .env
+../desktop.ini
+./desktop.ini
+desktop.ini
+/target/
+**/logs/
+*.log
+.DS_Store
