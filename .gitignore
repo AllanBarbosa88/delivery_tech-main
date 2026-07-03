@@ -38,9 +38,6 @@ build/
 desktop.ini
 /target/
 **/logs
-logs/
-registros/
-registrys/
-registrys/**
+/logs
 *.log
 .DS_Store
