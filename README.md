@@ -2,7 +2,7 @@
 
 Sistema de delivery moderno desenvolvido com Spring Boot 3.2.x e Java 21, utilizando as mais recentes funcionalidades da linguagem.
 
-## 👤 Identificação do Aluno
+## 👤 Identificação dos Desenvolvedores 
 * **Nome:** Allan Gutierez Barbosa
 * **Turma:** 04104
 * **Professor:** Anderson Demoner

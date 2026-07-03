@@ -27,3 +27,7 @@ INSERT INTO item_pedido (quantidade, preco_unitario, subtotal, pedido_id, produt
 INSERT INTO item_pedido (quantidade, preco_unitario, subtotal, pedido_id, produto_id) VALUES (1, 18.90, 18.90, 2, 4);
 INSERT INTO item_pedido (quantidade, preco_unitario, subtotal, pedido_id, produto_id) VALUES (1, 45.90, 45.90, 3, 7);
 INSERT INTO item_pedido (quantidade, preco_unitario, subtotal, pedido_id, produto_id) VALUES (1, 32.90, 32.90, 3, 8);
+-- Força o próximo auto_increment para um número seguro livre
+ALTER TABLE cliente ALTER COLUMN id RESTART WITH 4;
+ALTER TABLE restaurante ALTER COLUMN id RESTART WITH 4;
+ALTER TABLE produto ALTER COLUMN id RESTART WITH 10;
