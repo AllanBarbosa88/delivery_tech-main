@@ -7,12 +7,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import com.deliverytech.deliverytech_fat.dto.ItemPedidoDTO;
 import com.deliverytech.deliverytech_fat.dto.req.PedidoReqDTO;
+import com.deliverytech.deliverytech_fat.dto.res.EnderecoResponseDTO;
 import com.deliverytech.deliverytech_fat.dto.res.PedidoResDTO;
 import com.deliverytech.deliverytech_fat.entity.Cliente;
 import com.deliverytech.deliverytech_fat.entity.Entregador;
@@ -35,13 +36,26 @@ import com.deliverytech.deliverytech_fat.service.PedidoService;
 @Transactional
 public class PedidoServiceImpl implements PedidoService {
 
-    @Autowired private PedidoRepository pedidoRepository;
-    @Autowired private ClienteRepository clienteRepository;
-    @Autowired private RestauranteRepository restauranteRepository;
-    @Autowired private ProdutoRepository produtoRepository;
-    @Autowired private EntregadorRepository entregadorRepository;
-    @Autowired private ModelMapper modelMapper;
+    private final PedidoRepository pedidoRepository;
+    private final ClienteRepository clienteRepository;
+    private final RestauranteRepository restauranteRepository;
+    private final ProdutoRepository produtoRepository;
+    private final EntregadorRepository entregadorRepository;
+    private final ModelMapper modelMapper;
 
+    public PedidoServiceImpl(PedidoRepository pedidoRepository,
+                             ClienteRepository clienteRepository,
+                             RestauranteRepository restauranteRepository,
+                             ProdutoRepository produtoRepository,
+                             EntregadorRepository entregadorRepository,
+                             ModelMapper modelMapper) {
+        this.pedidoRepository = pedidoRepository;
+        this.clienteRepository = clienteRepository;
+        this.restauranteRepository = restauranteRepository;
+        this.produtoRepository = produtoRepository;
+        this.entregadorRepository = entregadorRepository;
+        this.modelMapper = modelMapper;
+    }
     @Override
     @Transactional
     public PedidoResDTO criarPedido(PedidoReqDTO dto) {
@@ -65,7 +79,7 @@ public class PedidoServiceImpl implements PedidoService {
             if (!produto.isDisponivel())
                 throw new BusinessException("Produto indisponível: " + produto.getNome());
             if (!produto.getRestaurante().getId().equals(dto.getRestauranteId()))
-                throw new BusinessException("Produto não belongs ao restaurante selecionado");
+                throw new BusinessException("Produto não pertence ao restaurante selecionado");
 
             BigDecimal subtotalItem = BigDecimal.valueOf(produto.getPreco())
                 .multiply(BigDecimal.valueOf(itemDTO.getQuantidade()));
@@ -80,18 +94,26 @@ public class PedidoServiceImpl implements PedidoService {
             subtotal = subtotal.add(subtotalItem);
         }
 
-        BigDecimal taxaEntrega = restaurante.getTaxaEntrega();
-        BigDecimal valorTotal = subtotal.add(taxaEntrega);
+        // 🌟 CÁLCULO DO FRETE DINÂMICO INTEGRADO
+        BigDecimal taxaEntregaBase = restaurante.getTaxaEntrega();
+        double distanciaSimuladaKm = Math.min(15.0, Math.max(1.5, dto.getEnderecoEntrega().length() / 4.0));
+        BigDecimal freteVariavel = BigDecimal.valueOf(distanciaSimuladaKm).multiply(new BigDecimal("1.50"));
+        
+        BigDecimal taxaEntregaFinalCalculada = taxaEntregaBase.add(freteVariavel);
+        BigDecimal valorTotalGeral = subtotal.add(taxaEntregaFinalCalculada);
 
         Pedido pedido = new Pedido();
         pedido.setCliente(cliente);
         pedido.setRestaurante(restaurante);
         pedido.setDataCriacao(LocalDateTime.now());
-        pedido.setStatus(StatusPedido.PENDENTE);
+        
+        // 🌟 CORREÇÃO: O pedido nasce PENDENTE (Aguardando o pagamento do cliente)
+        pedido.setStatus(StatusPedido.PENDENTE); 
+        
         pedido.setEnderecoEntrega(dto.getEnderecoEntrega());
         pedido.setSubTotal(subtotal);                        
-        pedido.setTaxaEntrega(taxaEntrega);
-        pedido.setValorTotal(valorTotal);
+        pedido.setTaxaEntrega(taxaEntregaFinalCalculada); // Devolve o frete calculado
+        pedido.setValorTotal(valorTotalGeral);            // Devolve o total calculado
 
         Pedido pedidoSalvo = pedidoRepository.save(pedido);
 
@@ -126,8 +148,7 @@ public class PedidoServiceImpl implements PedidoService {
             .orElseThrow(() -> new EntityNotFoundException("Pedido não encontrado"));
 
         if (!isTransicaoValida(pedido.getStatus(), novoStatus))
-            throw new BusinessException("Transição de status inválida: "
-                + pedido.getStatus() + " -> " + novoStatus);
+            throw new BusinessException("Transição de status inválida: " + pedido.getStatus() + " -> " + novoStatus);
 
         pedido.setStatus(novoStatus);
         return modelMapper.map(pedidoRepository.save(pedido), PedidoResDTO.class);
@@ -173,39 +194,58 @@ public class PedidoServiceImpl implements PedidoService {
         Entregador entregador = entregadorRepository.findById(entregadorId)
             .orElseThrow(() -> new EntityNotFoundException("Entregador não encontrado"));
 
-        // Regra de Negócio: Permite despachar se estiver PREPARANDO ou se já foi aceito como DESPACHADO
         if (pedido.getStatus() != StatusPedido.PREPARANDO && pedido.getStatus() != StatusPedido.DESPACHADO) {
             throw new BusinessException("Pedido não pode ser despachado no status atual: " + pedido.getStatus());
         }
 
-        // Regra de Negócio: O motoboy precisa estar livre
         if (entregador.getStatus() != StatusEntregador.DISPONIVEL) {
-            throw new BusinessException("O entregador selecionado está ocupado em outra corrida.");
+            throw new BusinessException("O entregador selecionado não está disponível");
         }
 
-        // Atualização de estados operacionais
-        entregador.setStatus(StatusEntregador.EM_ENTREGA);
-        pedido.setEntregador(entregador);
-        pedido.setStatus(StatusPedido.EM_ROTA); // Ou StatusPedido.SAIU_PARA_ENTREGA
-
-        entregadorRepository.save(entregador);
-        Pedido pedidoSalvo = pedidoRepository.save(pedido);
-
-        return modelMapper.map(pedidoSalvo, PedidoResDTO.class);
+        pedido.setStatus(StatusPedido.DESPACHADO);
+        return modelMapper.map(pedidoRepository.save(pedido), PedidoResDTO.class);
     }
 
-    private boolean isTransicaoValida(StatusPedido atual, StatusPedido novo) {
-        return switch (atual) {
-            case PENDENTE -> novo == StatusPedido.CONFIRMADO || novo == StatusPedido.CANCELADO;
-            case CONFIRMADO -> novo == StatusPedido.PREPARANDO || novo == StatusPedido.CANCELADO;
-            case PREPARANDO -> novo == StatusPedido.DESPACHADO || novo == StatusPedido.EM_ROTA || novo == StatusPedido.SAIU_PARA_ENTREGA;
-            case DESPACHADO -> novo == StatusPedido.EM_ROTA || novo == StatusPedido.SAIU_PARA_ENTREGA;
-            case EM_ROTA, SAIU_PARA_ENTREGA -> novo == StatusPedido.ENTREGUE;
-            default -> false;
-        };
+            // 🛠️ Métodos Auxiliares da Máquina de Estados
+         private boolean isTransicaoValida(StatusPedido atual, StatusPedido novo) {
+         if (atual == StatusPedido.PENDENTE && novo == StatusPedido.CONFIRMADO) return true;
+         if (atual == StatusPedido.CONFIRMADO && novo == StatusPedido.PREPARANDO) return true;
+         if (atual == StatusPedido.PREPARANDO && novo == StatusPedido.DESPACHADO) return true;
+         if (atual == StatusPedido.DESPACHADO && novo == StatusPedido.EM_ROTA) return true;
+         if (atual == StatusPedido.EM_ROTA && novo == StatusPedido.ENTREGUE) return true;
+         if (novo == StatusPedido.CANCELADO && podeSerCancelado(atual)) return true;
+         return false;
+        }
+        private boolean podeSerCancelado(StatusPedido status) {
+            return status == StatusPedido.PENDENTE || status == StatusPedido.CONFIRMADO;
+        }
+            @Override
+    @Transactional(readOnly = true)
+    public EnderecoResponseDTO buscarEnderecoPorCep(String cep) {
+        // 1. Limpa o CEP tirando traços e espaços
+        String cepLimpo = cep.replaceAll("[^0-9]", "");
+        if (cepLimpo.length() != 8) {
+            throw new BusinessException("CEP inválido. Deve conter exatamente 8 dígitos.");
+        }
+        
+        // 2. Monta a URL perfeita exigida pelo ViaCEP (com as barras corretas!)
+        String url = "https://viacep.com.br/ws/" + cepLimpo + "/json/";
+        
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            // Faz a busca real na internet
+            EnderecoResponseDTO endereco = restTemplate.getForObject(url, EnderecoResponseDTO.class);
+            
+            if (endereco == null || endereco.isErro()) {
+                throw new EntityNotFoundException("CEP não encontrado na base do ViaCEP.");
+            }
+            
+            return endereco;
+        } catch (EntityNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BusinessException("Erro ao conectar com o serviço de CEP externo.");
+        }
     }
 
-    private boolean podeSerCancelado(StatusPedido status) {
-        return status == StatusPedido.PENDENTE || status == StatusPedido.CONFIRMADO;
     }
-}

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.deliverytech.deliverytech_fat.dto.ItemPedidoDTO;
 import com.deliverytech.deliverytech_fat.dto.req.PedidoReqDTO;
+import com.deliverytech.deliverytech_fat.dto.res.EnderecoResponseDTO;
 import com.deliverytech.deliverytech_fat.dto.res.PedidoResDTO;
 import com.deliverytech.deliverytech_fat.enums.StatusPedido;
 
@@ -18,12 +19,14 @@ public interface PedidoService {
 
     PedidoResDTO atualizarStatusPedido(Long id, StatusPedido status);
 
-    BigDecimal calcularTotalPedido(List<ItemPedidoDTO> itens);
+    EnderecoResponseDTO buscarEnderecoPorCep(String cep);
 
+
+    BigDecimal calcularTotalPedido(List<ItemPedidoDTO> itens);
+    
     void cancelarPedido(Long id);
 
     PedidoResDTO alterarStatus(Long id, com.deliverytech.deliverytech_fat.enums.StatusPedido status);
 
-    // 🌟 ADICIONE ESTA ASSINATURA FALTANTE AQUI PARA ACABAR COM O ERRO DE COMPILAÇÃO:
     PedidoResDTO despacharPedido(Long pedidoId, Long entregadorId);
 }
