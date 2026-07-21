@@ -53,6 +53,7 @@ public class SecurityConfig {
         "/swagger-ui/**",
         "/swagger-ui.html",
         "/api/auth/**"
+        
     };
 
     @Autowired private AuthService authService;
@@ -80,9 +81,10 @@ public class SecurityConfig {
             .authenticationProvider(authenticationProvider())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(WHITE_LIST).permitAll()
+                .requestMatchers("/api/pedidos/consulta/cep/**").permitAll()
                 .anyRequest().authenticated())
-             // Adicione aqui o seu filtro JWT personalizado antes do filtro padrão do Spring
-             // .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)        
+            // Adicione aqui o seu filtro JWT personalizado antes do filtro padrão do Spring
+            // .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
 

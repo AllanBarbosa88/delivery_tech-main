@@ -20,37 +20,47 @@ import com.deliverytech.deliverytech_fat.service.PagamentoService;
 public class PagamentoServiceImpl implements PagamentoService {
 
     @Autowired private PagamentoRepository pagamentoRepository;
-    @Autowired private PedidoRepository pedidoRepository;
+    @Autowired private PedidoRepository pedidoRepository; // 👈 Injetar o repositório de pedidos
 
     @Override
+    @Transactional
     public Pagamento processarPagamento(Long pedidoId, BigDecimal valor) {
+        // 1. Busca o pedido no banco
         Pedido pedido = pedidoRepository.findById(pedidoId)
             .orElseThrow(() -> new EntityNotFoundException("Pedido não encontrado"));
 
-        if (pedido.getStatus() != StatusPedido.PENDENTE) {
-            throw new BusinessException("Pagamento só pode ser processado para pedidos PENDENTES");
+        // 2. Valida se o valor pago é idêntico ao valor_total calculado com o frete
+        if (valor.compareTo(pedido.getValorTotal()) != 0) {
+            // Se o valor estiver errado, salva o pagamento como RECUSADO
+            Pagamento pagamentoFalho = new Pagamento();
+            pagamentoFalho.setPedido(pedido);
+            pagamentoFalho.setValorPago(valor);
+            pagamentoFalho.setStatusPagamento("RECUSADO");
+            pagamentoRepository.save(pagamentoFalho);
+            
+            throw new BusinessException("Pagamento Recusado: O valor enviado não confere com o total do pedido.");
         }
 
-        if (pedido.getValorTotal().compareTo(valor) != 0) {
-            throw new BusinessException("Valor pago divergente do valor total do pedido!");
-        }
+        // 3. Se o valor estiver correto, o motor APROVA o pagamento
+        Pagamento pagamentoAprovado = new Pagamento();
+        pagamentoAprovado.setPedido(pedido);
+        pagamentoAprovado.setValorPago(valor);
+        pagamentoAprovado.setStatusPagamento("APROVADO");
+        pagamentoRepository.save(pagamentoAprovado);
 
-        Pagamento pagamento = new Pagamento();
-        pagamento.setPedido(pedido);
-        pagamento.setValorPago(valor);
-        pagamento.setStatusPagamento("APROVADO"); // Simulação de gateway
-
-        // Regra de Negócio: Se o pagamento foi aprovado, o pedido avança de PENDENTE para CONFIRMADO
+        // 🌟 4. VIRA A CHAVE DA MÁQUINA DE ESTADOS: Altera o status do pedido para CONFIRMADO!
         pedido.setStatus(StatusPedido.CONFIRMADO);
-        pedidoRepository.save(pedido);
+        pedidoRepository.save(pedido); // Salva o pedido atualizado no H2
 
-        return pagamentoRepository.save(pagamento);
+        return pagamentoAprovado;
     }
 
     @Override
     @Transactional(readOnly = true)
     public Pagamento buscarPorPedidoId(Long pedidoId) {
-        return pagamentoRepository.findByPedidoId(pedidoId)
-            .orElseThrow(() -> new EntityNotFoundException("Pagamento não encontrado para o pedido: " + pedidoId));
+        return pagamentoRepository.findAll().stream()
+            .filter(p -> p.getPedido() != null && pedidoId.equals(p.getPedido().getId()))
+            .findFirst()
+            .orElseThrow(() -> new EntityNotFoundException("Pagamento não Realizado para o pedido."));
     }
 }
