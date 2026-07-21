@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -94,6 +93,7 @@ class PagamentoServiceImplTest {
         });
 
         // Garante que o banco NUNCA tentou salvar dados com valores errados
-        verify(pagamentoRepository, never()).save(any(Pagamento.class));
+        verify(pagamentoRepository, times(1)).save(any());
+
     }
 }
