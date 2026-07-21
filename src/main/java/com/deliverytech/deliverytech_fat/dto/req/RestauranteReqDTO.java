@@ -1,15 +1,21 @@
 package com.deliverytech.deliverytech_fat.dto.req;
 
-import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 public class RestauranteReqDTO {
 
-     @Schema(description = "Nome do restaurante",
+    @Schema(description = "Nome do restaurante",
             example = "Pizza Express",
-            required = true)
+            requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "Nome é obrigatório")
     @Size(min = 2, max = 100, message = "Nome deve ter entre 2 e 100 caracteres")
     private String nome;

@@ -1,8 +1,9 @@
 package com.deliverytech.deliverytech_fat.dto.res;
 
-import com.deliverytech.deliverytech_fat.dto.ItemPedidoDTO;
-
+import java.math.BigDecimal; // 🔑 Importação necessária para valores monetários
 import java.util.List;
+
+import com.deliverytech.deliverytech_fat.dto.ItemPedidoDTO;
 
 public class PedidoResDTO {
     
@@ -16,7 +17,12 @@ public class PedidoResDTO {
     private String dataAtualizacao;
     private List<ItemPedidoDTO> itens;
 
-    // Getters e Setters
+    // 🌟 NOVOS CAMPOS FINANCEIROS ADICIONADOS
+    private BigDecimal subTotal;
+    private BigDecimal taxaEntrega;
+    private BigDecimal valorTotal;
+
+    // Getters e Setters Existentes
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -44,4 +50,14 @@ public class PedidoResDTO {
     public List<ItemPedidoDTO> getItens() { return itens; }
     public void setItens(List<ItemPedidoDTO> itens) { this.itens = itens; }
     
+    // 🌟 NOVOS GETTERS E SETTERS MANUAIS IMPLEMENTADOS
+    public BigDecimal getSubTotal() { return subTotal; }
+    public void setSubTotal(BigDecimal subTotal) { this.subTotal = subTotal; }
+
+    public BigDecimal getTaxaEntrega() { return taxaEntrega; }
+    public void setTaxaEntrega(BigDecimal taxaEntrega) { this.taxaEntrega = taxaEntrega; }
+
+    public BigDecimal getValorTotal() { return valorTotal; }
+    public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }
 }
+
