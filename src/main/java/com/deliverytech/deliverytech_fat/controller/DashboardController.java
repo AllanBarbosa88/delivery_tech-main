@@ -1,15 +1,19 @@
 package com.deliverytech.deliverytech_fat.controller;
 
-import io.micrometer.core.instrument.MeterRegistry;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.swagger.v3.oas.annotations.Operation; // 🔑 Importação necessária
+import io.swagger.v3.oas.annotations.tags.Tag;     // 🔑 Importação necessária
 
+@Tag(name = "Dashboard & Observabilidade", description = "Endpoints de monitoramento de performance (DevOps) e indicadores gerenciais de negócio (Métricas/KPIs)")
 @Controller
 @RequestMapping("/dashboard")
 public class DashboardController {
@@ -20,11 +24,19 @@ public class DashboardController {
         this.meterRegistry = meterRegistry;
     }
 
+    @Operation(
+        summary = "Redirecionar para a interface visual do Dashboard", 
+        description = "Encaminha a requisição do navegador diretamente para a página estática dashboard.html contendo os gráficos do painel gerencial."
+    )
     @GetMapping
     public String dashboard() {
         return "redirect:/dashboard.html"; 
     }
 
+    @Operation(
+        summary = "Obter dados de telemetria e métricas (KPIs)", 
+        description = "Retorna um mapa estruturado com indicadores em tempo real sobre faturamento, tempo de resposta do banco H2, saúde da JVM (CPU e Memória) e volume de vendas."
+    )
     @GetMapping("/api/metrics")
     @ResponseBody
     public Map<String, Object> getMetricsData() {
